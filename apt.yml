@@ -9,7 +9,6 @@
     with_items:
       - git
       - openssh-server
-      - npm
 
   - name: Download NodeJS
     get_url: url=https://deb.nodesource.com/setup_8.x dest=/ansible_files/nodejs_install.sh mode=744

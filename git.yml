@@ -4,6 +4,6 @@
   tasks:
     - name: clone ajcepeda
       git: repo=git@github.com:ALJCepeda/aljcepeda.git
-        dest=/sources/ajcepeda
-        key_file=/home/god/.ssh/id_rsa
+        dest=/sources
+        key_file=/root/.ssh/id_rsa
         accept_hostkey=true
