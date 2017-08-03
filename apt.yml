@@ -1,0 +1,21 @@
+- hosts: all
+  remote_user: root
+  become: yes
+  vars:
+    node_version: 8.2.1
+  tasks:
+  - name: Install Apts
+    apt: pkg={{ item }} update_cache=yes
+    with_items:
+      - git
+      - openssh-server
+      - npm
+
+  - name: Download NodeJS
+    get_url: url=https://deb.nodesource.com/setup_8.x dest=/ansible_files/nodejs_install.sh mode=744
+
+  - name: Add NodeJS Repo
+    shell: /ansible_files/nodejs_install.sh creates=/bin/node 
+
+  - name: Install NodeJS
+    apt: name=nodejs state=latest update_cache=yes
