@@ -1,5 +1,5 @@
-- include: files.yml
 - include: users.yml
+- include: files.yml
 - include: apt.yml
 - include: git.yml
 - include: apache.yml
