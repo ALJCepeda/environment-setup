@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: Setup sources folder
-    file: path=/sources state=directory owner=root group=developers recurse=yes mode=774
+    file: path=/sources state=directory owner=root group=sambagrp recurse=yes mode=774
 
   - name: Ansible Files folder
     file: path=/ansible_files state=directory mode=744

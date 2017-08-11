@@ -1,0 +1,6 @@
+---
+users:
+  alfred:
+    groups: [ 'admins', 'developers', 'samba' ]
+  chris:
+    groups: [ 'developers' ]
