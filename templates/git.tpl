@@ -3,13 +3,12 @@
   become: yes
   tasks:
   {{#each users}}
-    Hello
     {{#if gits}}
       {{#each gits}}
-    - name: Clone {{ @key }} for {{ @../key }}
+    - name: Clone {{ this }} for {{ @../key }}
         {{#with (lookup ../../gits this) as |gitObj|}}
       git: repo={{ gitObj.repo }}
-        dest=/home/{{ @../key }}/repos/{{ @key }}
+        dest=/home/{{ @../key }}/repos/{{ ../this }}
         key_file=/home/{{ @../key }}/.ssh/id_rsa
         accept_hostkey=true
          {{#if gitObj.version}}
