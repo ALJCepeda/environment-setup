@@ -2,16 +2,21 @@
   remote_user: root
   become: yes
   tasks:
-    - name: create developers
-      group: name=developers state=present
-    - name: create alfred
-      user: name=alfred
-        password= "{{ 'password' | password_hash('sha512') }}" 
+  {{#each groups}}
+    - name: Create {{ this }} group
+      group: name={{ this }} state=present
+  {{/each}}
+
+  {{#each users}}
+    - name: create {{ @key }} user
+      user: name={{ @key }}
         createhome=yes 
-        groups=sudo,developers
+        groups={{#each this.groups}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}
         state=present
         update_password=on_create
-      register: alfred
-    - name: alfred reset password
-      shell: chage -d 0 alfred
-      when: alfred.changed
+      register: {{ @key }}
+   
+    - name: Prompt {{ @key }} reset password
+      shell: chage -d 0 {{ @key }}
+      when: {{ @key }}.changed
+  {{/each}}

@@ -1,6 +1,7 @@
 ---
+groups: [ 'admins', 'developers' ]
 users:
   alfred:
-    groups: [ 'admins', 'developers', 'samba' ]
+    groups: [ 'admins', 'developers' ]
   chris:
     groups: [ 'developers' ]
