@@ -3,6 +3,24 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const glob = require('glob');
 
+const tplPattern = './templates/apt.tpl';
+
+handlebars.registerHelper('unlessContains', (elem, list, options) => {
+  if(list.indexOf) {
+    if(list.indexOf(elem) > -1) {
+      return options.inverse(this);
+    }
+
+    return options.fn(this);
+  } else {
+    if(list[elem]) {
+      return options.inverse(this);
+    }
+
+    return options.fn(this);
+  }
+});
+
 try {
   if(!fs.existsSync('./dist')) {
     fs.mkdirSync('./dist');
@@ -12,7 +30,7 @@ try {
     if(err) throw err;
 
     const config = yaml.safeLoad(fileContents);
-    glob('./templates/git.tpl', (err, filenames) => {
+    glob(tplPattern, (err, filenames) => {
       if(err) throw err;
 
       filenames.forEach((filename) => {

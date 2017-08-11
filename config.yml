@@ -1,4 +1,6 @@
 ---
+packages:
+  open-ssh: {}
 gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
