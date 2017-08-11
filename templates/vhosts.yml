@@ -5,8 +5,6 @@
     - name: restart apache2
       service: name=apache2 state=restarted
   tasks:
-    - name: Install apache
-      apt: name=apache2 state=latest
     - name: ajcepeda vh file
       vars:
         http_port: 80

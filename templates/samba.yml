@@ -1,0 +1,9 @@
+- hosts: all
+  remote_user: root
+  become: yes
+  handlers:
+    - name: restart samba
+      service: name=smbd state=restarted
+  tasks:
+    - name: Copying Samba Conf
+      template: src=samba.conf dest=/etc/samba/smb.conf

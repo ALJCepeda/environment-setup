@@ -48,3 +48,5 @@ files.forEach((filename) => {
     watchFile(filename);
   }
 });
+
+runBuild('change', 'Initial');

@@ -1,6 +1,7 @@
 ---
 packages:
-  open-ssh: {}
+  openssh-server: {}
+  samba: {}
 gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
