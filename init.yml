@@ -3,10 +3,15 @@
   become: yes
   tasks:
   - name: Download NodeJS
-    get_url: url=https://deb.nodesource.com/setup_8.x dest=/ansible_files/nodejs_install.sh mode=744
+    get_url: url=https://deb.nodesource.com/setup_8.x dest=./dist/nodejs_install.sh mode=644
 
   - name: Add NodeJS Repo
-    shell: /ansible_files/nodejs_install.sh creates=/bin/node 
+    shell: ./dist/nodejs_install.sh creates=/usr/bin/nodejs
 
   - name: Install NodeJS
     apt: name=nodejs state=latest update_cache=yes
+
+  - name: Build Playbooks
+    shell: node build.js
+    args:
+      creates: dist/main.yml

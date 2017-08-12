@@ -19,17 +19,6 @@ handlebars.registerHelper('unlessContains', (elem, list, options) => {
   }
 });
 
-const buildGlobPatterns = function(config) {
-  var patterns = './templates/*';
-
-  //if(config.packages.length === 0) { patterns.push('!./templates/packages.yml'); }
-  //if(config.gits.length === 0) { patterns.push('!./templates/gits.yml'); }
-  //if(!config.user || config.users.length === 0) { patterns.push('!./templates/users.yml'); }
-  //if(!config.vhosts || config.vhosts.length === 0) { patterns = `${patterns};!./templates/vhosts.yml`; }
-
-  return patterns;
-};
-
 try {
   if(!fs.existsSync('./dist')) {
     fs.mkdirSync('./dist');
@@ -39,8 +28,7 @@ try {
     if(err) throw err;
 
     const config = yaml.safeLoad(fileContents);
-    const pattern = buildGlobPatterns(config);
-    glob(pattern, (err, filenames) => {
+    glob('./templates/*', (err, filenames) => {
       if(err) throw err;
       if(filenames.length === 0) throw new Error(`No matching template for pattern ${pattern}`);
 
