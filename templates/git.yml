@@ -16,10 +16,22 @@
           {{#if gitObj.version}}
         version={{ gitObj.version }}
           {{/if}}
-        {{/with}}
 
-    - name: Set permissions for {{ this }} ({{ @../key }})
-      file: path=/home/{{ @../key }}/repos/{{ this }} owner={{@../key}} group={{@../key}} recurse=yes
+    - name: Initialize {{ ../this }} ({{ @../key }})
+      shell: {{ gitObj.init }} 
+      args:
+        chdir: /home/{{ @../key}}/repos/{{ ../this }}
+        creates: {{ gitObj.creates }}
+      register: {{ ../this }}{{ @../key }}
+        {{/with}}
+      {{/each}}
+
+      {{#each gits}}
+        {{#with (lookup ../../gits this) as |gitObj|}}
+    - name: chown {{ @../key }}
+      file: path=/home/{{ @../key }} owner={{@../key}} group={{@../key}} recurse=yes
+      when: {{ ../this }}{{ @../key }}.changed
+        {{/with}}
       {{/each}}
     {{/if}}
   {{/each}}

@@ -6,6 +6,8 @@ gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
     version: 'facebook'
+    init: 'npm install'
+    creates: 'node_modules'
 groups: [ 'admins', 'developers' ]
 users:
   alfred:
