@@ -1,12 +1,14 @@
 - hosts: all
-  remote_user: root
   become: yes
   tasks:
+  - name: Create Dist Folder
+    file: dest=dist state=directory
+
   - name: Download NodeJS
-    get_url: url=https://deb.nodesource.com/setup_8.x dest=./dist/nodejs_install.sh mode=644
+    get_url: url=https://deb.nodesource.com/setup_8.x dest=dist/nodejs_install.sh mode=544
 
   - name: Add NodeJS Repo
-    shell: ./dist/nodejs_install.sh creates=/usr/bin/nodejs
+    shell: dist/nodejs_install.sh creates=dist/main.yml
 
   - name: Install NodeJS
     apt: name=nodejs state=latest update_cache=yes
