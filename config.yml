@@ -6,7 +6,6 @@ gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
     version: 'facebook'
-    umask: '0644'
 groups: [ 'admins', 'developers' ]
 users:
   alfred:

@@ -5,7 +5,7 @@ const glob = require('glob');
 const { exec } = require('child_process');
 
 const files = [
-  './templates/*.tpl',
+  './templates/*.yml',
   './config.yml',
   './build.js'
 ];
