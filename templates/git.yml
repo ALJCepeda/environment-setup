@@ -17,6 +17,9 @@
         version={{ gitObj.version }}
           {{/if}}
         {{/with}}
+
+    - name: Set permissions for {{ this }} ({{ @../key }})
+      file: path=/home/{{ @../key }}/repos/{{ this }} owner={{@../key}} group={{@../key}} recurse=yes
       {{/each}}
     {{/if}}
   {{/each}}
