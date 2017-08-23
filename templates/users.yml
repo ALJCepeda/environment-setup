@@ -16,7 +16,7 @@
         shell={{#if shell}}{{ shell }}{{else}}/bin/bash{{/if}}
     {{#if password}}
         password={{ password }}
-    {{/password}}
+    {{/if}}
     {{#unless skipSSH}}
         ssh_key_bits=2048
         ssh_key_file=.ssh/id_rsa
