@@ -13,6 +13,10 @@
         createhome=yes 
         groups={{#each this.groups}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}
         state={{#if state}}{{ state }}{{else}}present{{/if}}
+        shell={{#if shell}}{{ shell }}{{else}}/bin/bash{{/if}}
+    {{#if password}}
+        password={{ password }}
+    {{/password}}
     {{#unless skipSSH}}
         ssh_key_bits=2048
         ssh_key_file=.ssh/id_rsa
