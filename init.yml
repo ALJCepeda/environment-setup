@@ -13,6 +13,11 @@
   - name: Install NodeJS
     apt: name=nodejs state=latest update_cache=yes
 
+  - name: Install Modules
+    shell: npm install
+    args:
+      creates: dist/main.yml
+
   - name: Build Playbooks
     shell: node build.js
     args:
