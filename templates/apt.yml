@@ -6,7 +6,7 @@
     apt: pkg=\{{ item }} update_cache=yes
     with_items:
 {{#each packages}}
-      - {{ @key }}
+      - {{ this }}
 {{/each }} 
 {{#unlessContains 'git' packages}}
       - git

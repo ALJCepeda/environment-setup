@@ -1,7 +1,5 @@
 ---
-packages:
-  openssh-server: {}
-  samba: {}
+packages: [ 'openssh-server', 'samba', 'build-essential', 'chrpath', 'libssl-dev', 'libxft-dev', 'libfreetype6-dev', 'libfreetype6', 'libfontconfig1-dev', 'libfontconfig1' ]
 gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
