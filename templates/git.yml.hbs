@@ -1,12 +1,12 @@
-- hosts: all
-  remote_user: root
-  become: yes
+- hosts: {{ playbook.hosts }}
+  remote_user: {{ playbook.remote_user }}
+  become: {{ playbook.become }}
   tasks:
-  {{#each users}}
+  {{#each tasks.users}}
     {{#if gits}}
       {{#each gits}}
     - name: Clone {{ this }} for {{ @../key }}
-        {{#with (lookup ../../gits this) as |gitObj|}}
+        {{#with (lookup ../../tasks.gits this) as |gitObj|}}
       git: repo={{ gitObj.repo }}
         accept_hostkey=true
         dest=/home/{{ @../key }}/repos/{{ ../this }}
@@ -18,20 +18,22 @@
           {{/if}}
 
     - name: Initialize {{ ../this }} ({{ @../key }})
-      shell: {{ gitObj.init }} 
+      shell: {{ gitObj.init }}
       args:
         chdir: /home/{{ @../key}}/repos/{{ ../this }}
         creates: {{ gitObj.creates }}
       register: {{ ../this }}{{ @../key }}
         {{/with}}
-      {{/each}}
 
+      {{/each}}
       {{#each gits}}
-        {{#with (lookup ../../gits this) as |gitObj|}}
+        {{#with (lookup ../../tasks.gits this) as |gitObj|}}
     - name: chown {{ @../key }}
       file: path=/home/{{ @../key }} owner={{@../key}} group={{@../key}} recurse=yes
       when: {{ ../this }}{{ @../key }}.changed
         {{/with}}
+
       {{/each}}
     {{/if}}
+
   {{/each}}

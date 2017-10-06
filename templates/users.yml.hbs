@@ -1,16 +1,25 @@
-- hosts: all
-  remote_user: root
-  become: yes
+- hosts: {{ playbook.hosts }}
+  remote_user: {{ playbook.remote_user }}
+  become: {{ playbook.become }}
   tasks:
-  {{#each groups}}
+  {{#each tasks.groups}}
     - name: Create {{ this }} group
       group: name={{ this }} state=present
-  {{/each}}
 
-  {{#each users}}
+  {{/each}}
+  {{#each tasks.sudoers}}
+    - name: Add {{ this }} to sudoers
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%{{ this }}'
+        line: '%{{ this }} ALL=(ALL) NOPASSWD: ALL'
+
+  {{/each}}
+  {{#each tasks.users}}
     - name: create {{ @key }} user
       user: name={{ @key }}
-        createhome=yes 
+        createhome=yes
         groups={{#each this.groups}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}
         state={{#if state}}{{ state }}{{else}}present{{/if}}
         shell={{#if shell}}{{ shell }}{{else}}/bin/bash{{/if}}
@@ -23,8 +32,9 @@
     {{/unless}}
         update_password=on_create
       register: {{ @key }}
-   
+
     - name: Prompt {{ @key }} reset password
       shell: chage -d 0 {{ @key }}
       when: {{ @key }}.changed
+      
   {{/each}}

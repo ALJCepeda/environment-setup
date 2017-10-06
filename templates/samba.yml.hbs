@@ -1,6 +1,6 @@
-- hosts: all
-  remote_user: root
-  become: yes
+- hosts: {{ playbook.hosts }}
+  remote_user: {{ playbook.remote_user }}
+  become: {{ playbook.become }}
   handlers:
     - name: restart samba
       service: name=smbd state=restarted

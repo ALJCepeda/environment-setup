@@ -1,4 +1,7 @@
 ---
+hosts: 'all'
+remote_user: 'root'
+become: 'yes'
 packages: [ 'openssh-server', 'samba', 'build-essential', 'chrpath', 'libssl-dev', 'libxft-dev', 'libfreetype6-dev', 'libfreetype6', 'libfontconfig1-dev', 'libfontconfig1' ]
 gits:
   ajcepeda:
@@ -7,6 +10,7 @@ gits:
     init: 'npm install'
     creates: 'node_modules'
 groups: [ 'admins', 'developers' ]
+sudoers: [ 'admins' ]
 users:
   alfred:
     groups: [ 'admins', 'developers' ]

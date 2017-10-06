@@ -10,7 +10,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    "playbooks": "ansible-playbook -i \"localhost,\" -c local dist/main.yml"
+    "install": "./init.sh",
+    "prestart": "npm build",
+    "start": "ansible-playbook -i \"localhost,\" -c local dist/main.yml",
+    "build": "rm -r ./dist && node index.js",
+    "module": "ansible-playbook -i \"localhost,\" -c local dist/modules/"
   },
   "repository": {
     "type": "git",

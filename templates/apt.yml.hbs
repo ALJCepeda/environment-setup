@@ -1,0 +1,13 @@
+- hosts: {{ playbook.hosts }}
+  remote_user: {{ playbook.remote_user }}
+  become: {{ playbook.become }}
+  tasks:
+  - name: Install Apts
+    apt: pkg=\{{ item }} update_cache=yes
+    with_items:
+{{#each tasks.packages}}
+      - {{ this }}
+{{/each }}
+{{#unlessContains 'git' tasks.packages}}
+      - git
+{{/unlessContains}}
