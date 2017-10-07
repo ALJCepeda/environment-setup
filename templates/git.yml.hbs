@@ -16,6 +16,11 @@
           {{#if gitObj.version}}
         version={{ gitObj.version }}
           {{/if}}
+          {{#if gitObj.update}}
+        update={{ gitObj.update }}
+          {{ else }}
+        update=no
+          {{/if}}
 
     - name: Initialize {{ ../this }} ({{ @../key }})
       shell: {{ gitObj.init }}

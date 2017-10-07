@@ -8,6 +8,3 @@
 {{#each tasks.packages}}
       - {{ this }}
 {{/each }}
-{{#unlessContains 'git' tasks.packages}}
-      - git
-{{/unlessContains}}

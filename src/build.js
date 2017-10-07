@@ -11,17 +11,19 @@ const Renderer = require('./renderer.js');
 const renderer = new Renderer(handlebars, modeler);
 
 try {
-  if(!fs.existsSync('./dist')) {
-    fs.mkdirSync('./dist');
-  }
-
-  fs.readFile('./config.yml', 'utf8', (err, fileContents) => {
+  require('rimraf')('./dist', (err) => {
     if(err) throw err;
+    
+    fs.mkdirSync('./dist');
 
-    const config = yaml.safeLoad(fileContents);
-    const ansibleModel = modeler.buildAnsibleModel(config);
+    fs.readFile('./config.yml', 'utf8', (err, fileContents) => {
+      if(err) throw err;
 
-    renderer.renderAnsibleModel(ansibleModel);
+      const config = yaml.safeLoad(fileContents);
+      const ansibleModel = modeler.buildAnsibleModel(config);
+
+      renderer.renderAnsibleModel(ansibleModel);
+    });
   });
 } catch(e) {
   console.log(e);

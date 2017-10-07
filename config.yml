@@ -2,7 +2,6 @@
 hosts: 'all'
 remote_user: 'root'
 become: 'yes'
-packages: [ 'openssh-server', 'samba', 'build-essential', 'chrpath', 'libssl-dev', 'libxft-dev', 'libfreetype6-dev', 'libfreetype6', 'libfontconfig1-dev', 'libfontconfig1' ]
 gits:
   ajcepeda:
     repo: 'https://github.com/ALJCepeda/aljcepeda'
@@ -17,3 +16,28 @@ users:
     gits: [ 'ajcepeda' ]
   chris:
     groups: [ 'developers' ]
+modules:
+  postgres:
+    become_user: postgres
+    become: true
+    tasks:
+      - name: 'Creating ajcepeda psql database'
+        postgresql_db:
+          name: 'ajcepeda'
+      - name: 'Creating ajcepeda psql user'
+        postgresql_user:
+          name: 'ajcepeda'
+          password: 'password'
+packages:
+  - 'openssh-server'
+  - 'samba'
+  - 'build-essential'
+  - 'chrpath'
+  - 'postgresql'
+  - 'postgresql-contrib'
+  - 'libssl-dev'
+  - 'libxft-dev'
+  - 'libfreetype6-dev'
+  - 'libfreetype6'
+  - 'libfontconfig1-dev'
+  - 'libfontconfig1'

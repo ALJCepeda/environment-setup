@@ -29,17 +29,13 @@ Renderer.prototype.renderAnsibleModules = function(model) {
 
   const modules = model.modules;
   const playbook = model.playbook;
-  const order = [];
   for (const key in modules) {
     const moduleConfig = modules[key];
     const moduleModel = this.modeler.buildModulesModel(key, moduleConfig, playbook);
     const path = `modules/${key}.yml`;
 
-    order.push(path);
     this.render('./templates/modules/module.yml.hbs', `./dist/${path}`, moduleModel);
   }
-
-  return order;
 };
 
 Renderer.prototype.renderTemplates = function(ansibleModel) {

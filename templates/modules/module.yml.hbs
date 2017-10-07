@@ -1,16 +1,19 @@
 - hosts: {{ playbook.hosts }}
   remote_user: {{ playbook.remote_user }}
+  {{#if playbook.become_user}}
+  become_user: {{ playbook.become_user }}
+  {{/if}}
   become: {{ playbook.become }}
   tasks:
   {{#each tasks}}
-    {{#if this.meta.taskName}}
-    - name: {{ this.meta.taskName }}
+    {{#if this.name}}
+    - name: {{ this.name }}
     {{else}}
-    - name: {{ this.meta.filename }} task {{#inc @index}}{{/inc}}
+    - name: {{ this.filename }} task {{#inc @index}}{{/inc}}
     {{/if}}
-      {{ this.meta.module }}:
+      {{ this.module }}:
     {{#each this.facts}}
         {{ @key }}={{ this }}
     {{/each}}
-    
+
   {{/each}}

@@ -6,15 +6,16 @@
   "dependencies": {
     "glob": "^7.1.2",
     "handlebars": "^4.0.10",
-    "js-yaml": "^3.9.1"
+    "js-yaml": "^3.9.1",
+    "lodash": "^4.17.4",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {},
   "scripts": {
     "install": "./init.sh",
-    "prestart": "npm build",
-    "start": "ansible-playbook -i \"localhost,\" -c local dist/main.yml",
-    "build": "rm -r ./dist && node index.js",
-    "module": "ansible-playbook -i \"localhost,\" -c local dist/modules/"
+    "start": "npm run build && npm run playbooks",
+    "build": "node index.js",
+    "playbooks": "ansible-playbook -i \"localhost,\" -c local dist/main.yml"
   },
   "repository": {
     "type": "git",
