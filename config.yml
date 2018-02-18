@@ -16,6 +16,9 @@ users:
     gits: [ 'ajcepeda' ]
   chris:
     groups: [ 'developers' ]
+  dana:
+    groups: [ 'admins', 'developers' ]
+    gits: [ 'ajcepeda' ]
 modules:
   postgres:
     become_user: postgres
@@ -28,6 +31,11 @@ modules:
         postgresql_user:
           name: 'ajcepeda'
           password: 'password'
+      - name: 'Creating ajcepeda-app psql database'
+        postgresql_db:
+          name: 'ajcepeda-app'
+          encoding: 'UTF-8'
+          owner: 'ajcepeda'
 packages:
   - 'openssh-server'
   - 'samba'
