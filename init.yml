@@ -19,6 +19,6 @@
       creates: dist/main.yml
 
   - name: Build Playbooks
-    shell: node build.js
+    shell: node index.js
     args:
       creates: dist/main.yml
