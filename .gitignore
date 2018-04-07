@@ -3,3 +3,4 @@ package-lock.json
 **.*.swp
 dist/
 id_rsa
+backups
